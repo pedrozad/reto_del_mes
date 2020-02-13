@@ -4,8 +4,8 @@ class Bloque:
   
   def __init__(self, timestamp, data, previous_hash):
     self.timestamp = timestamp
-    # Raise a TypeError if the type of the data is None or if data is a
-    # Empty String.
+    # Raise a TypeError if the type of the data is None or if data is an
+    # empty String.
     if ((data is None) or  (not data) ):
         raise TypeError("The data is None or it is empty string")
     else:

@@ -6,18 +6,22 @@ class Cadena:
     """Variables de inicialización necesarios para por lo menos identificar el primer bloque y/o el último bloque. Otras variables también podrán ser agregadas"""
     timestamp = datetime.datetime.utcnow()
     # A chain cannot contain empty blocks 
-    # First Bloque
+    # First Block of the chain
     try:
       first_bloque = Bloque.Bloque(timestamp,data,"0")
     except TypeError:
       raise TypeError("Data cannot be neither None nor an empty string")
-    # A chain like a list
+    # The chain is represented as a python list
     self.chain = [first_bloque]
     
 
   def agregar_bloque(self, data):
     """Agrega un bloque a la cadena. Tomar en consideración que el primer bloque es especial porque no tiene previous_hash. Retorna True si la operación es exitosa, False de lo contrario. Considerar retornar con Error si se trata de algun caso especial"""
     try:
+      # First, obtain the hash of the last block of the chain,
+      # the current UTC datetime and try to create a new Block with the information.
+      # Then, append the new Block to the chain.
+      # Return False if there is any error. Otherwise, return True
       aux_block = self.chain[-1]
       timestamp = datetime.datetime.utcnow()
       new_block = Bloque.Bloque(timestamp,data,aux_block.hash)
@@ -39,8 +43,6 @@ class Cadena:
     for i in range(0,chainLength):
       auxBlock = self.chain[i]
       if str(auxPrevHash) != str(auxBlock.previous_hash) :
-        #print(str(auxPrevHash))
-        #print(str(auxBlock.previous_hash))
         return False
       auxPrevHash = self.chain[i].hash
 
